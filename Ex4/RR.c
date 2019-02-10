@@ -110,7 +110,28 @@ void rr()
     avgwt/=N; avgtat/=N; avgrt/=N;
     for(int i = 0; i < tot; i++)
     {
-        printf("P %d \t %.2f \t %.2f \t %.2f \t %.2f \t %.2f \t %.2f \t %.2f", pe[i].id, pe[i].at, pe[i].bt, pe[i].st, pe[i].ft, pe[i].wt, pe[i].tat, pe[i].rt);
+        printf("P %d \t %.2f \t %.2f \t %.2f \t %.2f \t ", pe[i].id, pe[i].at, pe[i].bt, pe[i].st, pe[i].ft);
+        if(pe[i].wt < 0)
+        {
+            printf("-- \t ");
+        }
+        else {
+            printf("%.2f \t ",pe[i].wt);
+        }
+        if(pe[i].tat < 0)
+        {
+            printf("-- \t ");
+        }
+        else {
+            printf("%.2f \t ",pe[i].tat);
+        }
+        if(pe[i].rt < 0)
+        {
+            printf("-- \t ");
+        }
+        else {
+            printf("%.2f \t ",pe[i].rt);
+        }
         printf("\n");
     }
     printf("Average: WT = %3.2f TAT = %3.2f RT = %3.2f\n\n", avgwt, avgtat, avgrt);
