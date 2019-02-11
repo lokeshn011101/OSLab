@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
     if(p != NULL) {
         while((d = readdir(p)))
         {
-            if(!strcmp(d->d_name,argv[2])) {
+            if(!strcmp(d->d_name,argv[2+i])) {
                 e = 1;
                 break;
             }
