@@ -1,5 +1,5 @@
-Script started on Tue Feb  5 12:42:15 2019
-bash-3.2$ cat max3.sh
+Script started on Tue Feb 19 00:09:03 2019
+[?1034hbash-3.2$ cat max3.sh
 if [ $# -lt 3 ]
 then
 	echo "Too few arguments!"
@@ -18,7 +18,7 @@ else
 	echo "No maximum"
 fi
 
-bash-3.2$ ./max3.sh 5 4 3
+bash-3.2$ ./max3.sh 3 4 5
 5 is maximum
 bash-3.2$ cat disp.sh
 echo Current date: `date +"%d-%m-%Y"`
@@ -27,10 +27,10 @@ echo Username: $USER
 echo Current Directory: `pwd`
 
 bash-3.2$ ./disp.sh
-Current date: 05-02-2019
-Time: 12:43:03
+Current date: 19-02-2019
+Time: 00:09:38
 Username: nanda
-Current Directory: /Users/nanda/Files/OS Lab/Ex3
+Current Directory: /Users/nanda/Files/OS Lab/Ex4
 bash-3.2$ cat math.sh
 case $2 in
 	"+") echo `expr $1 + $3`;;
@@ -38,24 +38,14 @@ case $2 in
 	"x") echo `expr $1 \* $3`;;
 	"/") echo `expr $1 / $3`;;
 esac
-bash-3.2$ ./math.sh 5 - 2
+bash-3.2$ ./math.sh 4 - 1
 3
-bash-3.2$ cat while5.sh
-n=5
-while [ $n -gt 0 ]
-do
-	echo -n -e $n
-	if [ $n -ne 1 ]
-	then
-		echo -n -e ", "
-	else
-		echo -n -e "\n"
-	fi
-	n=`expr $n - 1`
-done
-
-bash-3.2$ ./while5.sh
-5, 4, 3, 2, 1
+bash-3.2$ ./math.sh 5 + 1
+6
+bash-3.2$ ./math.sh 2 x 2
+4
+bash-3.2$ ./math.sh 2 / 2
+1
 bash-3.2$ cat pattern.sh
 for i in 1 2 3 4 5
 do
@@ -86,8 +76,6 @@ echo -n "$i "
 done
 echo ""
 done
-bash-3.2$ ./pattri
-bash: ./pattri: No such file or directory
 bash-3.2$ ./pattri.sh
           1 
          2 2 
@@ -98,6 +86,22 @@ bash-3.2$ ./pattri.sh
     7 7 7 7 7 7 7 
    8 8 8 8 8 8 8 8 
   9 9 9 9 9 9 9 9 9 
+bash-3.2$ cat while5.sh
+n=5
+while [ $n -gt 0 ]
+do
+	echo -n -e $n
+	if [ $n -ne 1 ]
+	then
+		echo -n -e ", "
+	else
+		echo -n -e "\n"
+	fi
+	n=`expr $n - 1`
+done
+
+bash-3.2$ ./while5.sh
+5, 4, 3, 2, 1
 bash-3.2$ cat fileex.sh
 if [ $# -lt 1 ]
 then
@@ -110,8 +114,10 @@ echo File exists!
 else
 echo Does not exist!
 fi
-bash-3.2$ ./fileex.sh max3.sh
+bash-3.2$ ./fileex.sh myfile.txt
 File exists!
+bash-3.2$ ./fileex.sh yourfile
+Does not exist!
 bash-3.2$ cat fileline.sh
 a=`expr $2 - $1`
 a=`expr $a + 1`
@@ -125,4 +131,4 @@ Line6
 bash-3.2$ exit
 exit
 
-Script done on Tue Feb  5 12:46:13 2019
+Script done on Tue Feb 19 00:13:07 2019
