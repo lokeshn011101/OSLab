@@ -3,20 +3,31 @@
 #include<sys/shm.h>
 #include<sys/types.h>
 #include<unistd.h>
+#include<fcntl.h>
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
 #include<sys/wait.h>
-#include<stdio_ext.h>
 int main()
 {
 	char *a;
-	FILE *fd;
+	int fd;
 	int id = shmget(112, 50, IPC_CREAT);
 	a = shmat(id, NULL, 0);
 	while(a[0] == '\0');
-	fd = fopen(a, "r");
-	a[0] = 'O';
-	fscanf(fd, "%s", a);
+	fd = open(a, O_RDONLY);
+	a[0] = '\0';
+	if(fd < 0) {
+		strcpy(a, "Does not exist!\n");
+		shmdt(a);
+		exit(0);
+	}
+	char r; int i = 0;
+	while((read(fd, &r, 1)))
+	{
+		a[i] = r;
+		i++;
+	}
+	printf("Read!");
 	shmdt(a);
 }

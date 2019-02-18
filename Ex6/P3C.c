@@ -11,15 +11,19 @@ int main()
 {
 	int id;
 	char *a;
-	id = shmget(112, 50, IPC_CREAT | 00666);
+	id = shmget(115, 50, IPC_CREAT | 00666);
 	a = shmat(id, NULL, 0);
-	a[0] = '\0';
-	printf("Enter file name: ");
-	scanf("%s", a);
-	sleep(1);
-	while(a[0] == '\0');
-	printf("%s", a);
+	while(1) {
+		a[0] = '\0';
+		printf("You: ");
+		scanf("%s", a);
+		if(a[0] == '*') break;
+		sleep(1);
+		while(a[0] == '\0');
+		printf("Server: %s\n", a);
+		if(a[0] == '*') break;
+	}
+	printf("Connection Ended!\n");
 	shmdt(a);
 	shmctl(id, IPC_RMID, NULL);
-	return 0;
 }

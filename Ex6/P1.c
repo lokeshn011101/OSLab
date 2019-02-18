@@ -7,7 +7,6 @@
 #include<string.h>
 #include<stdlib.h>
 #include<sys/wait.h>
-#include<stdio_ext.h>
 void strupr(char *a)
 {
 	for(int i = 0; a[i] != '\0'; i++)
@@ -23,6 +22,7 @@ int main()
 	{
 		a = shmat(id, NULL, 0);
 		a[0] = '\0';
+		printf("Enter a string: ");
 		scanf("%s", a);
 		wait(NULL);
 		shmdt(a);
@@ -32,7 +32,7 @@ int main()
 		b = shmat(id, NULL, 0);
 		while(b[0] == '\0');
 		strupr(b);
-		printf("\n%s\n", b);
+		printf("Uppercase: %s\n", b);
 		shmdt(b);
 	}
 	shmctl(id, IPC_RMID, NULL);

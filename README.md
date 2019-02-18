@@ -1,9 +1,12 @@
 # Operating Systems Lab
 Programs for the Operating Systems Lab in Semester 4, shell scripts and C.
 ## Exercises
-1. System commands <br>
-2. System calls and programs <br>
-3. Implementation of system commands (ls, cp, grep) <br>
-4. Shell programs <br>
-5. Scheduling algorithms <br>
-6. Inter-process communication <br>
+1. System Commands <br>
+2. System Calls and Programs <br>
+3. Implementation of System Commands (ls, cp, grep) <br>
+4. Shell Programs <br>
+5. Scheduling Algorithms <br>
+6. Inter-Process Communication <br>
+7. Producer Consumer Problem using Semaphores <br>
+8. Banker's Algorithm <br>
+9. Deadlock Detection <br>
