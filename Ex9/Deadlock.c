@@ -71,7 +71,7 @@ void detect()
 int main()
 {
     for(int i = 0; i < 5; i++) request();
-    print(RAG, 5, 5);
+    print(RAG, 5, 5); //assumption
     detect();
     return 0;
 }
