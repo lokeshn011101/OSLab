@@ -4,6 +4,7 @@
 // For semaphore operations sem_init,sem_wait,sem_post
 #include <semaphore.h>
 #include <pthread.h>
+#include <unistd.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <sys/sem.h>

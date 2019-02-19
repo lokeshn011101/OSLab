@@ -4,6 +4,7 @@
 //For semaphore operations - sem_init, sem_wait, sem_post
 #include <semaphore.h>
 #include <pthread.h>
+#include <unistd.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <sys/sem.h>
@@ -50,7 +51,7 @@ int main()
         printf("\nConsumer %d Consumed Item [%c]\n", getpid(), buff[c]);
         buff[c]=' ';
         c++;
-        printf("\nItems consumed: %d\n", i);
+        printf("\nItems consumed: %d\n", i+1);
         i++;
         sem_post(mutex);
         printf("\nConsumer %d released Semaphore Mutex\n", getpid());

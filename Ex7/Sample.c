@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include <semaphore.h>
 #include <pthread.h>
 #include <sys/ipc.h>
@@ -52,7 +53,7 @@ void produce()
         printf("\nProducer %d released Semaphore Mutex \n",getpid());
         sem_post(full);
         printf("\nProducer %d released Semaphore Full \n",getpid());
-        sleep(random()%3);
+        sleep(random()%5);
     }
 }
 //
@@ -77,7 +78,7 @@ void consume()
         printf("\nConsumer %d Consumed Item [ %c ] \n",getpid(),buff[c]);
         buff[c]=' ';
         c++;
-        printf("\nItems consumed: %d \n",strlen(input_string));
+        printf("\nItems consumed: %d \n",i+1);
         i++;
         sem_post(mutex);
         printf("\nConsumer %d released Semaphore Mutex \n",getpid());
