@@ -1,9 +1,9 @@
 #include<stdio.h>
 int M = 3, N = 2;
-int RAG[20][20];
-int WFG[20][20];
-int stack[20], v[20], top = -1, flag = 0, l = 0, cycle = 0;
-void print(int a[][20], int n, int m)
+int RAG[10][10];
+int WFG[10][10];
+int stack[10], v[10], top = -1, flag = 0, l = 0, cycle = 0;
+void print(int a[][10], int n, int m)
 {
     for(int i = 0; i < n; i++)
     {
