@@ -10,3 +10,9 @@ Programs for the Operating Systems Lab in Semester 4, shell scripts and C.
 7. Producer Consumer Problem using Semaphores <br>
 8. Banker's Algorithm <br>
 9. Deadlock Detection <br>
+10. Memory Allocation Techniques <br>
+11. Paging Implementation <br>
+12. Page Replacement Algorithms <br>
+13. Threading <br>
+14. File Allocation Techniques <br>
+15. File Organization Techniques <br>
