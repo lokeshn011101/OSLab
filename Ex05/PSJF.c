@@ -63,8 +63,6 @@ void update()
     if(wt[curr] == -1)
     {
         wt[curr] = st[curr] - at[curr];
-        rt[curr] = st[curr] - at[curr];
-        r += rt[curr];
         flag = 1;
     }
     else wt[curr] = wt[curr]+(pt-ft[curr]);
