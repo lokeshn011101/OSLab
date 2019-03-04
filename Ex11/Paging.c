@@ -59,7 +59,8 @@ void deallocate()
 	Pagetable *pd, *t, *d;
 	int f;
 	Freeframe *pf, *tf;
-	for(pf = fhead; pf->next != NULL; pf = pf->next);
+    pf = fhead;
+	if(fhead != NULL) for(; pf->next != NULL; pf = pf->next);
 	pd = process[p];
 	if(process[p] == NULL) {
 		printf("Not allocated!\n");
@@ -72,9 +73,16 @@ void deallocate()
 		tf = (Freeframe*)malloc(sizeof(Freeframe));
 		tf->frameno = f;
 		tf->next = NULL;
-		if(pf != NULL) pf->next = tf;
-		pf = tf;
+        if(pf != NULL) {
+            pf->next = tf;
+            pf = tf;
+        }
+        else {
+            pf = tf;
+            fhead = pf;
+        }
 		t = t->next;
+        nfree++;
 		free(d);
 	}
 	process[p] = NULL;
@@ -83,7 +91,8 @@ void deallocate()
 void showtables()
 {
 	for(int i = 0; i < 10; i++) {
-		printtable(process[i]);
+        if(process[i] != NULL) printf("PID: %d\n", i);
+        printtable(process[i]);
 		if(process[i] != NULL) printf("\n");
 	}
 }
@@ -123,14 +132,17 @@ int main()
 	printf("No. of frames = %d\n", nframes);
 	for(int i = 0; i < nframes/2; i++) {
 		int fr = random()%nframes;		
-		frames[fr] = 1;
-		nfree++;
-		temp = (Freeframe*)malloc(sizeof(Freeframe));
-		temp->frameno = fr;
-		temp->next = NULL; 
-		if(nfree == 1) fhead = temp;
-		else prev->next = temp;
-		prev = temp;
+        if(frames[fr] != 1) {
+            frames[fr] = 1;
+            nfree++;
+            temp = (Freeframe*)malloc(sizeof(Freeframe));
+            temp->frameno = fr;
+            temp->next = NULL;
+            if(nfree == 1) fhead = temp;
+            else prev->next = temp;
+            prev = temp;
+        }
+        else i--;
 	}
 	int ch = 0;
 	do {
