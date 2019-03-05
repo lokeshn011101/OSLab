@@ -216,8 +216,8 @@ Choice: 4
 1. Process Request 2. Deallocate 3. Show all Page Tables 4. Show all Free Frames 5. Address Mapping 6. Exit
 Choice: 5
 PID: 1
-Logical address: 3
-Physical address: 13
+Logical address: 2048
+Physical address: 12288
 1. Process Request 2. Deallocate 3. Show all Page Tables 4. Show all Free Frames 5. Address Mapping 6. Exit
 Choice: 6
 bash-3.2$ exit
