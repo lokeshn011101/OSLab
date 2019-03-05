@@ -103,8 +103,8 @@ void addressmap()
 	scanf("%d", &p);
 	printf("Logical address: ");
 	scanf("%d", &la);
-	pn = la / pgsize;
-	o = la % pgsize;
+	pn = la / (pgsize * 1024);
+	o = la % (pgsize * 1024);
 	Pagetable *h = process[p], *t;
 	t = h;
 	for(int i = 0; i < pn; i++)
@@ -112,7 +112,7 @@ void addressmap()
 		t = t->next;
 	}
 	fn = t->frameno;
-	pa = fn * pgsize + o;
+	pa = fn * pgsize * 1024 + o;
 	printf("Physical address: %d\n", pa);
 }
 void showfree()
