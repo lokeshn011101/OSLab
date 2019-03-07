@@ -12,7 +12,7 @@ typedef struct directory {
 typedef struct unit {
     int d;
     void *p;
-} Unit;
+}Unit;
 Unit root[50];
 int count = 0;
 File* new_file(char s[])
@@ -25,7 +25,8 @@ Directory* new_dir(char s[])
 {
     Directory* n = (Directory*)malloc(sizeof(Directory));
     strcpy(n->fname, s);
-    c = 0;
+    n->c = 0;
+    for(int i = 0; i < 5; i++) n->l[i] = NULL;
     return n;
 }
 int search_file(char s[])
@@ -33,8 +34,8 @@ int search_file(char s[])
     int flag = 0;
     for(int i = 0; i < count; i++)
     {
-        if(root[i] != NULL) {
-            if(strcmp(root[i].p->fname,s) == 0 && root[i].d == 0) {
+        if(root[i].p != NULL) {
+            if(strcmp(((File*)(root[i].p))->fname,s) == 0 && root[i].d == 0) {
                 flag = 1;
                 break;
             }
@@ -42,14 +43,14 @@ int search_file(char s[])
     }
     return flag;
 }
-int search_dir(char s[])
+Directory* search_dir(char s[])
 {
-    int flag = 0;
+    Directory* flag = NULL;
     for(int i = 0; i < count; i++)
     {
-        if(root[i] != NULL) {
-            if(strcmp(root[i].p->fname,s) == 0 && root[i].d == 1) {
-                flag = 1;
+        if(root[i].p != NULL) {
+            if(strcmp(((Directory*)(root[i].p))->fname,s) == 0 && root[i].d == 1) {
+                flag = ((Directory*)(root[i].p));
                 break;
             }
         }
@@ -58,8 +59,16 @@ int search_dir(char s[])
 }
 void insert_file(char s[])
 {
+    if(count >= 50) {
+        printf("Full!\n");
+        return;
+    }
     if(search_file(s) == 1) {
         printf("File %s already exists!\n", s);
+        return;
+    }
+    if(search_dir(s) != NULL) {
+        printf("Directory named %s already exists!\n", s);
         return;
     }
     root[count].p = new_file(s);
@@ -67,10 +76,42 @@ void insert_file(char s[])
     count++;
     printf("Created!\n");
 }
+void insert_file_dir(Directory* d, char s[])
+{
+    int i, pos;
+    if(d->c >= 5) {
+        printf("Directory full!\n");
+        return;
+    }
+    for(i = 0; i < 5; i++)
+    {
+        if(d->l[i] != NULL) {
+            if(strcmp(d->l[i]->fname, s)==0) {
+                printf("File already exists!\n");
+                return;
+            }
+        }
+        else {
+            pos = i;
+            i = 5;
+        }
+    }
+    d->l[pos] = new_file(s);
+    d->c = d->c + 1;
+    printf("Created!\n");
+}
 void insert_dir(char s[])
 {
-    if(search_dir(s) == 1) {
+    if(count >= 50) {
+        printf("Full!\n");
+        return;
+    }
+    if(search_dir(s) != NULL) {
         printf("Directory %s already exists!\n", s);
+        return;
+    }
+    if(search_file(s) == 1) {
+        printf("File named %s already exists!\n", s);
         return;
     }
     root[count].p = new_dir(s);
@@ -78,27 +119,50 @@ void insert_dir(char s[])
     count++;
     printf("Created!\n");
 }
-void display(Unit* d[])
+void display(Unit d[])
 {
     printf("Contents of root:\n");
     if(count == 0) {
         printf("Empty!\n");
         return;
     }
+    int ch = 0;
     printf("Files:\n");
     for(int i = 0; i < count; i++) {
-        if(root[i] != NULL) {
-            if(root[i].d == 0)
-                printf("%s\t",root[i].p->fname);
+        if(root[i].p != NULL) {
+            if(root[i].d == 0) {
+                printf("%s ",((File*)(root[i].p))->fname); ch++;
+            }
         }
     }
+    if(ch == 0) printf("None!");
     printf("\nDirectories:\n");
+    ch = 0;
+    int dc = 0;
     for(int i = 0; i < count; i++) {
-        if(root[i] != NULL) {
+        if(root[i].p != NULL) {
             if(root[i].d == 1) {
-                printf("%s\n",root[i].p->fname);
-                printf("Contents:\n");
-                for(int j = 0; j < 5)
+                ch++;
+                printf("%s ",((Directory*)(root[i].p))->fname);
+            }
+        }
+    }
+    if(ch == 0) printf("None!");
+    printf("\n");
+    ch = 0;
+    for(int i = 0; i < count; i++) {
+        if(root[i].p != NULL) {
+            if(root[i].d == 1) {
+                ch++;
+                printf("Contents of %s:\n",((Directory*)(root[i].p))->fname);
+                dc = 0;
+                for(int j = 0; j < 5; j++)
+                    if(((Directory*)(root[i].p))->l[j] != NULL) {
+                        printf("%s ", ((Directory*)(root[i].p))->l[j]->fname);
+                        dc++;
+                    }
+                if(dc == 0) printf("None!");
+                printf("\n");
             }
         }
     }
@@ -110,22 +174,45 @@ int main()
     while(1)
     {
         printf("1. New File\n");
-        printf("2. Display all files\n");
-        printf("3. Exit\n");
+        printf("2. New Directory\n");
+        printf("3. Display all files\n");
+        printf("4. Exit\n");
         printf("Enter choice: ");
         scanf("%d",&c);
         if(c==1)
         {
-            char s[50];
+            char d[10], s[10];
+            printf("Enter root to create file in the root directory.\nEnter root/directory to create file in the sub-directory.\nEnter directory: ");
+            scanf("%s",d);
             printf("Enter file name: ");
-            scanf("%s",s);
-            insert_file(s);
+            scanf("%s", s);
+            if(strcmp(d,"root")!=0)
+            {
+                char* n = strtok(d, "/");
+                n = strtok(NULL, "/");
+                Directory* dir = search_dir(n);
+                if(dir != NULL) {
+                    insert_file_dir(dir, s);
+                }
+                else printf("No such directory!\n");
+            }
+            else if(strcmp(d,"root")==0) {
+                insert_file(s);
+            }
         }
         else if(c==2)
         {
+            char d[10];
+            printf("Enter directory name: ");
+            scanf("%s", d);
+            insert_dir(d);
+        }
+        else if(c==3)
+        {
             display(root);
         }
-        else {
+        else
+        {
             break;
         }
     }
