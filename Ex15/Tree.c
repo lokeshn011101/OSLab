@@ -6,7 +6,7 @@ typedef struct files {
 }File;
 typedef struct directory {
     char dname[10];
-    struct Directory *d1,*d2,*d3;
+    struct directory *d1,*d2,*d3;
     File *f1,*f2;
 }Directory;
 Directory *root = NULL;
@@ -134,6 +134,7 @@ File* get_file_pointer(char s[])
             }
         }
     }
+    return NULL;
 }
 Directory* get_directory_pointer(char s[])
 {
@@ -160,6 +161,7 @@ Directory* get_directory_pointer(char s[])
             return temp;
         }
     }
+    return NULL;
 }
 void display_file(File* f, char s[])
 {
@@ -225,7 +227,7 @@ int main()
         else if(c==3)
         {
             char s[400];
-            strcpy(s,"/");
+            strcpy(s,"");
             printf("File\t\tPath\n");
             display(root,s);
         }

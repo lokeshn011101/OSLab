@@ -6,7 +6,7 @@ typedef struct files {
 }File;
 typedef struct directory {
     char dname[10];
-    struct Directory *d1,*d2,*d3;
+    struct directory *d1,*d2,*d3;
     File *f1,*f2;
 }Directory;
 Directory *root = NULL;
@@ -98,7 +98,7 @@ void insert_file(char s[])
             }
         }
         else
-	  printf("File limit exceeded!");
+            printf("File limit exceeded!");
     }
 }
 File* get_file_pointer(char s[])
@@ -134,32 +134,34 @@ File* get_file_pointer(char s[])
             }
         }
     }
+    return NULL;
 }
 Directory* get_directory_pointer(char s[])
 {
-  char *t = strtok(s,"/");
-  char *g;
-  Directory *temp = root;
-  while(t != NULL){
-    if(temp->d1 != NULL && strcmp(t,temp->d1->dname)==0)
-    {
-        temp = temp->d1;
+    char *t = strtok(s,"/");
+    char *g;
+    Directory *temp = root;
+    while(t != NULL) {
+        if(temp->d1 != NULL && strcmp(t,temp->d1->dname)==0)
+        {
+            temp = temp->d1;
+        }
+        else if(temp->d2 != NULL && strcmp(t,temp->d2->dname)==0)
+        {
+            temp = temp->d2;
+        }
+        else if(temp->d3 != NULL && strcmp(t,temp->d3->dname)==0)
+        {
+            temp = temp->d3;
+        }
+        g = t;
+        t = strtok(NULL,"/");
+        if(t == NULL)
+        {
+            return temp;
+        }
     }
-    else if(temp->d2 != NULL && strcmp(t,temp->d2->dname)==0)
-    {
-        temp = temp->d2;
-    }
-    else if(temp->d3 != NULL && strcmp(t,temp->d3->dname)==0)
-    {
-        temp = temp->d3;
-    }
-    g = t;
-    t = strtok(NULL,"/");
-    if(t == NULL)
-    {
-        return temp;
-    }
-  }
+    return NULL;
 }
 void create_link(char s1[], char s2[])
 {
@@ -183,7 +185,7 @@ void create_link(char s1[], char s2[])
 }
 void display_file(File* f, char s[])
 {
-  printf("%s\t\t%s\n",f->fname,s);
+    printf("%s\t\t%s\n",f->fname,s);
 }
 void display(Directory* r, char s[])
 {
@@ -256,7 +258,7 @@ int main()
         else if(c==4)
         {
             char s[400];
-            strcpy(s,"/");
+            strcpy(s,"");
             printf("File\t\tPath\n");
             display(root,s);
         }
