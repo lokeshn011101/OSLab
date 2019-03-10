@@ -201,9 +201,21 @@ void display(Directory* r, char s[])
         {
             display_file(r->f2,s);
         }
-        display(r->d1,s);
-        display(r->d2,s);
-        display(r->d3,s);
+        if(r->d1 != NULL) {
+            char s1[50];
+            strcpy(s1, s);
+            display(r->d1,s1);
+        }
+        if(r->d2 != NULL) {
+            char s1[50];
+            strcpy(s1, s);
+            display(r->d2,s1);
+        }
+        if(r->d3 != NULL) {
+            char s1[50];
+            strcpy(s1, s);
+            display(r->d3,s1);
+        }
     }
 }
 int main()
