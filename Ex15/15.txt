@@ -79,7 +79,7 @@ int main()
     }
 }
 
-bash-3.2$ c99 SingleLevel.c -o SingleLevel
+bash-3.2$ gcc SingleLevel.c -o SingleLevel
 bash-3.2$ ./SingleLevel 
 1. New File
 2. Display all files
@@ -337,7 +337,7 @@ int main()
 }
 
 
-bash-3.2$ c99 TwoLevel.c -o TwoLevel
+bash-3.2$ gcc TwoLevel.c -o TwoLevel
 bash-3.2$ ./TwoLevel 
 1. New File
 2. New Directory
@@ -648,7 +648,7 @@ int main()
         }
     }
 }
-bash-3.2$ c99 Tree.c -o Tree
+bash-3.2$ gcc Tree.c -o Tree
 bash-3.2$ ./Tree
 1. Insert a Directory
 2. Insert a File
@@ -975,7 +975,7 @@ int main()
         }
     }
 }
-bash-3.2$ c99 DAG.c -o DAG
+bash-3.2$ gcc DAG.c -o DAG
 bash-3.2$ ./DAG
 1. Insert a Directory
 2. Insert a File
