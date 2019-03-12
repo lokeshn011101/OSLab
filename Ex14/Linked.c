@@ -90,6 +90,7 @@ int main()
             break;
         }
     }
+    printf("\nFile allocation:\n");
     for(int i = 0; i < f; i++) {
         printf("File %s:\n",files[i].n);
         print(files[i].head);

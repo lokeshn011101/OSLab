@@ -8,24 +8,15 @@ typedef struct file {
 typedef struct indexblock {
     int blockid;
     int blocks[100];
-} Index;
-Index i
+} IndexBlock;
+IndexBlock index[100];
 File files[100];
 int freeb[100], mem, bsize, n, nf, c, r, f;
-List* newnode(int n)
+void print(int i)
 {
-    List* p = (List*)malloc(sizeof(List));
-    p->block = n;
-    p->next = NULL;
-    return p;
-}
-void print(List* head)
-{
-    for(List* t = head; t != NULL; t = t->next)
-    {
-        printf("%d",t->block);
-        if(t->next == NULL) printf("\n");
-        else printf("->");
+    printf("Index block no.: %d\nBlock table:\n", index[i].blockid);
+    for(int j = 0; j < files[i].b; j++) {
+        printf("%d ", index[i].blocks[j]);
     }
 }
 int main()
@@ -55,31 +46,29 @@ int main()
     scanf("%d", &f);
     for(int i = 0; i < f; i++) {
         printf("Enter name of file %d: ", i+1);
-        scanf("%s", (files[c].n));
+        scanf("%s", files[c].n);
         printf("Enter size in KB: ");
         scanf("%d", &files[c].s);
         files[c].b = files[c].s/bsize;
         if(files[c].s*1.0/bsize > files[c].b) (files[c].b)++;
-        if(files[c].b > nf) {
+        if(files[c].b + 1 > nf) {
             printf("Can't allocate!\n");
             i--;
         }
         else {
-            List *t, *p;
+            do {
+                r = random()%n;
+            }while(freeb[r] == 1);
+            index[c].blockid = r;
+            files[c].i = r;
+            freeb[r] = 1;
+            nf--;
             for(int j = 0; j < files[c].b; j++) {
                 r = random()%n;
                 if(freeb[r] == 0) {
                     freeb[r] = 1;
                     nf--;
-                    t = newnode(r);
-                    if(j == 0) {
-                        files[c].head = t;
-                        p = files[c].head;
-                    }
-                    else {
-                        p->next = t;
-                        p = t;
-                    }
+                    index[c].blocks[j] = r;
                 }
                 else j--;
             }
@@ -91,9 +80,10 @@ int main()
             break;
         }
     }
+    printf("\nFile Allocation:\n");
     for(int i = 0; i < f; i++) {
         printf("File %s:\n",files[i].n);
-        print(files[i].head);
+        print(i);
         printf("\n");
     }
     return 0;
