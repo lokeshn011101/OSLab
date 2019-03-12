@@ -38,6 +38,11 @@ void insert_directory(char s[])
             printf("Enter the directory name: ");
             scanf("%s",d);
             Directory* newdir = (Directory*)malloc(sizeof(Directory));
+            newdir->d1=NULL;
+            newdir->d2=NULL;
+            newdir->d3=NULL;
+            newdir->f1=NULL;
+            newdir->f2=NULL;
             strcpy(newdir->dname,d);
             if(temp->d1 == NULL)
             {
