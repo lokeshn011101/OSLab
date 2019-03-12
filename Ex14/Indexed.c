@@ -3,8 +3,13 @@
 typedef struct file {
     char n[10];
     int s, b;
-    List* head;
+    int i;
 }File;
+typedef struct indexblock {
+    int blockid;
+    int blocks[100];
+} Index;
+Index i
 File files[100];
 int freeb[100], mem, bsize, n, nf, c, r, f;
 List* newnode(int n)

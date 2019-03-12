@@ -439,6 +439,11 @@ void insert_directory(char s[])
             scanf("%s",d);
             Directory* newdir = (Directory*)malloc(sizeof(Directory));
             strcpy(newdir->dname,d);
+            newdir->d1=NULL;
+            newdir->d2=NULL;
+            newdir->d3=NULL;
+            newdir->f1=NULL;
+            newdir->f2=NULL;
             if(temp->d1 == NULL)
             {
                 temp->d1 = newdir;
@@ -548,7 +553,7 @@ Directory* get_directory_pointer(char s[])
         }
         else if(temp->d2 != NULL && strcmp(t,temp->d2->dname)==0)
         {
-            temp = temp->d2;
+            temp = temp->d2;
         }
         else if(temp->d3 != NULL && strcmp(t,temp->d3->dname)==0)
         {
@@ -735,6 +740,11 @@ void insert_directory(char s[])
             scanf("%s",d);
             Directory* newdir = (Directory*)malloc(sizeof(Directory));
             strcpy(newdir->dname,d);
+            ewdir->d1=NULL;
+            newdir->d2=NULL;
+            newdir->d3=NULL;
+            newdir->f1=NULL;
+            newdir->f2=NULL;
             if(temp->d1 == NULL)
             {
                 temp->d1 = newdir;
