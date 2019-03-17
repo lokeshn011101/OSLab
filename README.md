@@ -3,7 +3,7 @@ Programs for the Operating Systems Lab in Semester 4, shell scripts and C.
 ## Exercises
 1. System Commands <br>
 2. System Calls and Programs <br>
-3. Implementation of System Commands (ls, cp, grep) <br>
+3. Implementation of System Commands (ls, cp, grep, head, tail, nl, wc) <br>
 4. Shell Programs <br>
 5. Scheduling Algorithms <br>
 6. Inter-Process Communication <br>
